@@ -40,8 +40,8 @@ a. Go to your repository’s Settings → Environments. <br>
 b. Create a new Environment named Docker-ECS-Github-Actions. <br>
 c. Inside that environment, add these secrets: <br>
 
-| Secret Name             | Example Value            | Description                    |
-|-------------------------|-------------------------|--------------------------------|
+| Secret Name             | Example Value            | Description                   |
+| :----------------------- | :----------------------- | :----------------------------- |
 | `DOCKERHUB_USERNAME`    | `elvis32`               | Docker Hub username            |
 | `DOCKERHUB_TOKEN`       | `dckr_pat_XXXXX`        | Docker Hub access token        |
 | `DOCKERHUB_REPO`        | `elvis32/flask-welcome` | Repository name in Docker Hub  |
@@ -79,7 +79,7 @@ a. Build Job  <br>
   🔹 Short SHA (7-character commit hash)<br>
 🔹 Exposes the short tag as an output for the deploy job.<br>
 
-b.Deploy Job
+b. Deploy Job
 🔹 Configures AWS credentials.<br>
 🔹 Fetches your AWS account ID dynamically.<br>
 🔹 Generates and patches an ECS task definition (no static JSON file required).<br>
@@ -97,4 +97,4 @@ c. Deploy job runs → ECS service pulls the new image.<br>
 d. Fargate replaces old tasks with the new container.<br>
 
 Visit your ECS Service URL / ALB DNS → <br>
-you’ll see “Welcome to Python 🎉”. <br>
+you’ll see “Welcome to Python”. <br>
