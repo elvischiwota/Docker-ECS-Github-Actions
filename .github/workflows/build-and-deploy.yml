@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     tags: [ "v*" ]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 env:
   DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_REPO }}
@@ -16,6 +16,7 @@ env:
 
 jobs:
   build-and-push:
+    environment: Docker-ECS-Github-Actions   # 👈 link to your Environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,6 +49,7 @@ jobs:
             ${{ env.DOCKERHUB_REPO }}:${{ steps.meta.outputs.sha_short }}
 
   deploy:
+    environment: Docker-ECS-Github-Actions   # 👈 same environment
     runs-on: ubuntu-latest
     needs: build-and-push
     steps:
