@@ -4,11 +4,14 @@ Git push → Build Docker image → Push to Docker Hub → Deploy to AWS ECS (Fa
 
 ## File Structure
  ```bash
-.
-├─ app.py
+project-root/
+├─ app/
+│  └─ app.py
 ├─ requirements.txt
 ├─ Dockerfile
 ├─ .dockerignore
+├─ ecs-taskdef.base.json
+├─ README.md
 └─ .github/
    └─ workflows/
       └─ build-and-deploy.yml
