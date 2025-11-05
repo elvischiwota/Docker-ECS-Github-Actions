@@ -69,7 +69,7 @@ d. Verify: <br>
  🔹 CloudWatch Logs group exists (named /ecs/<task-family>). <br>
 
 ## Step 4: Workflow Overview
-Once set up, the workflow runs automatically whenever you push to main, tag a version, or trigger it manually.
+Once set up, the workflow runs automatically whenever you push to main, tag a version, or trigger it manually.  <br>
 a. Build Job  <br>
 🔹 Checks out your code.<br>
 🔹 Logs in to Docker Hub using secrets.<br>
@@ -80,34 +80,21 @@ a. Build Job  <br>
 🔹 Exposes the short tag as an output for the deploy job.<br>
 
 b.Deploy Job
-
-Configures AWS credentials.
-
-Fetches your AWS account ID dynamically.
-
-Generates and patches an ECS task definition (no static JSON file required).
-
-Substitutes your environment values:
-
-Task family, region, execution role, container name, log group.
-
-Updates the image tag with the short SHA.
-
-Registers the new task definition.
-
-Deploys it to your ECS service.
-
-Waits for service stability before finishing.
+🔹 Configures AWS credentials.<br>
+🔹 Fetches your AWS account ID dynamically.<br>
+🔹 Generates and patches an ECS task definition (no static JSON file required).<br>
+🔹 Substitutes your environment values:<br>
+  🔹 Task family, region, execution role, container name, log group.<br>
+🔹 Updates the image tag with the short SHA.<br>
+🔹 Registers the new task definition.<br>
+🔹 Deploys it to your ECS service.<br>
+🔹 Waits for service stability before finishing.<br>
 
 ## Step 5: Deployment Flow
+a. Push code → triggers the GitHub Actions workflow.<br>
+b. Build job runs → image is built and uploaded to Docker Hub.<br>
+c. Deploy job runs → ECS service pulls the new image.<br>
+d. Fargate replaces old tasks with the new container.<br>
 
-Push code → triggers the GitHub Actions workflow.
-
-Build job runs → image is built and uploaded to Docker Hub.
-
-Deploy job runs → ECS service pulls the new image.
-
-Fargate replaces old tasks with the new container.
-
-Visit your ECS Service URL / ALB DNS →
-you’ll see “Welcome to Python 🎉”.
+Visit your ECS Service URL / ALB DNS → <br>
+you’ll see “Welcome to Python 🎉”. <br>
