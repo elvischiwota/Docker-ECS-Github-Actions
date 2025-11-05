@@ -58,18 +58,19 @@ Create a new Environment named Docker-ECS-Github-Actions.
 
 Inside that environment, add these secrets:
 
-| Secret Name             | Example Value           | Description                   |
-|-------------------------|------------------------|-------------------------------|
-| `DOCKERHUB_USERNAME`    | `elvis32`              | Docker Hub username           |
-| `DOCKERHUB_TOKEN`       | `dckr_pat_XXXXX`       | Docker Hub access token       |
-| `DOCKERHUB_REPO`        | `elvis32/flask-welcome`| Repository name in Docker Hub |
-| `AWS_ACCESS_KEY_ID`     | *your AWS key*         | AWS access key                |
-| `AWS_SECRET_ACCESS_KEY` | *your AWS secret*      | AWS secret                    |
-| `AWS_REGION`            | `eu-west-1`            | AWS region                    |
-| `ECS_CLUSTER`           | `FlaskCluster`         | ECS cluster name              |
-| `ECS_SERVICE`           | `FlaskService`         | ECS service name              |
-| `ECS_TASK_FAMILY`       | `flask-welcome-task`   | ECS task definition family    |
-| `CONTAINER_NAME`        | `flask-welcome`        | ECS container name            |
+| Secret Name             | Example Value            | Description                    |
+|-------------------------|-------------------------|--------------------------------|
+| `DOCKERHUB_USERNAME`    | `elvis32`               | Docker Hub username            |
+| `DOCKERHUB_TOKEN`       | `dckr_pat_XXXXX`        | Docker Hub access token        |
+| `DOCKERHUB_REPO`        | `elvis32/flask-welcome` | Repository name in Docker Hub  |
+| `AWS_ACCESS_KEY_ID`     | *your AWS key*          | AWS access key                 |
+| `AWS_SECRET_ACCESS_KEY` | *your AWS secret*       | AWS secret                     |
+| `AWS_REGION`            | `eu-west-1`             | AWS region                     |
+| `ECS_CLUSTER`           | `FlaskCluster`          | ECS cluster name               |
+| `ECS_SERVICE`           | `FlaskService`          | ECS service name               |
+| `ECS_TASK_FAMILY`       | `flask-welcome-task`    | ECS task definition family     |
+| `CONTAINER_NAME`        | `flask-welcome`         | ECS container name             |
+
 
 
 
