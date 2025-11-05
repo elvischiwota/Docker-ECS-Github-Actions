@@ -15,48 +15,30 @@ Git push → Build Docker image → Push to Docker Hub → Deploy to AWS ECS (Fa
 ```
 
 ## File descriptions
-
-app.py – Simple Flask app entrypoint.
-
-requirements.txt – Lists Python dependencies.
-
-Dockerfile – Builds the Docker image.
-
-.dockerignore – Excludes unnecessary files from image builds.
-
-.github/workflows/build-and-deploy.yml – GitHub Actions workflow that handles CI/CD.
+🔹 app.py – Simple Flask app entrypoint. <br>
+🔹 requirements.txt – Lists Python dependencies. <br>
+🔹 Dockerfile – Builds the Docker image. <br>
+🔹 .dockerignore – Excludes unnecessary files from image builds. <br>
+🔹 .github/workflows/build-and-deploy.yml – GitHub Actions workflow that handles CI/CD. <br>
 
 ## Prerequisites
-
-Before using this automation, make sure you have:
-
-Docker Hub account – to store built images.
-
-AWS account – with permissions for ECS, IAM, and CloudWatch Logs.
-
-GitHub repository – containing this project.
-
-ECS Cluster and Service (Fargate) – already set up.
-
-IAM Execution Role – usually named ecsTaskExecutionRole.
+Before using this automation, make sure you have: <br>
+a. Docker Hub account – to store built images. <br>
+b. AWS account – with permissions for ECS, IAM, and CloudWatch Logs. <br>
+c. GitHub repository – containing this project. <br>
+d. ECS Cluster and Service (Fargate) – already set up. <br>
+e. IAM Execution Role – usually named ecsTaskExecutionRole. <br>
 
 ## Step 1: Set Up Docker Hub
-
-Log in to Docker Hub.
-
-Create a public repository (e.g., yourname/flask-welcome).
-
-Go to Account Settings → Security → New Access Token.
-
-Save your username and the access token — they’ll be used in GitHub secrets.
+a. Log in to Docker Hub. <br>
+b. Create a public repository (e.g., yourname/flask-welcome). <br>
+c. Go to Account Settings → Security → New Access Token. <br>
+d. Save your username and the access token — they’ll be used in GitHub secrets. <br>
 
 ## Step 2: Configure GitHub Environment & Secrets
-
-Go to your repository’s Settings → Environments.
-
-Create a new Environment named Docker-ECS-Github-Actions.
-
-Inside that environment, add these secrets:
+a. Go to your repository’s Settings → Environments. <br>
+b. Create a new Environment named Docker-ECS-Github-Actions. <br>
+c. Inside that environment, add these secrets: <br>
 
 | Secret Name             | Example Value            | Description                    |
 |-------------------------|-------------------------|--------------------------------|
@@ -71,54 +53,33 @@ Inside that environment, add these secrets:
 | `ECS_TASK_FAMILY`       | `flask-welcome-task`    | ECS task definition family     |
 | `CONTAINER_NAME`        | `flask-welcome`         | ECS container name             |
 
-
-
-
-
-⚠️ All workflow jobs reference this environment.
-Without the environment link, secrets will not load correctly.
+All workflow jobs reference this environment. <br>
+Without the environment link, secrets will not load correctly. <br>
 
 ## Step 3: Prepare AWS ECS (One-time Setup)
+a. Create or reuse an ECS Fargate cluster. <br>
+b. Create a Service under the cluster (desired count ≥ 1). <br>
+c. Ensure the execution role ecsTaskExecutionRole has these policies: <br>
+ 🔹 AmazonECSTaskExecutionRolePolicy <br>
+ 🔹 AmazonEC2ContainerRegistryReadOnly <br>
 
-Create or reuse an ECS Fargate cluster.
-
-Create a Service under the cluster (desired count ≥ 1).
-
-Ensure the execution role ecsTaskExecutionRole has these policies:
-
-AmazonECSTaskExecutionRolePolicy
-
-AmazonEC2ContainerRegistryReadOnly
-
-Verify:
-
-The container port (5000) matches your Flask app.
-
-Security groups allow inbound traffic (via ALB or public IP).
-
-CloudWatch Logs group exists (named /ecs/<task-family>).
+d. Verify: <br>
+ 🔹 The container port (5000) matches your Flask app. <br>
+ 🔹 Security groups allow inbound traffic (via ALB or public IP). <br>
+ 🔹 CloudWatch Logs group exists (named /ecs/<task-family>). <br>
 
 ## Step 4: Workflow Overview
-
 Once set up, the workflow runs automatically whenever you push to main, tag a version, or trigger it manually.
+a. Build Job  <br>
+🔹 Checks out your code.<br>
+🔹 Logs in to Docker Hub using secrets.<br>
+🔹 Builds and pushes the image to Docker Hub.<br>
+🔹 Tags the image as:<br>
+  🔹 latest<br>
+  🔹 Short SHA (7-character commit hash)<br>
+🔹 Exposes the short tag as an output for the deploy job.<br>
 
-🔹 Build Job
-
-Checks out your code.
-
-Logs in to Docker Hub using secrets.
-
-Builds and pushes the image to Docker Hub.
-
-Tags the image as:
-
-latest
-
-Short SHA (7-character commit hash)
-
-Exposes the short tag as an output for the deploy job.
-
-🔹 Deploy Job
+b.Deploy Job
 
 Configures AWS credentials.
 
